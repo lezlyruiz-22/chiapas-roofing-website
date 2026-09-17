@@ -8,9 +8,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: { rejectUnauthorized: false }
+// });
+
+// Strip query parameters so pg doesn't override SSL settings
+const cleanDbUrl = process.env.DATABASE_URL 
+  ? process.env.DATABASE_URL.split('?')[0] 
+  : '';
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  connectionString: cleanDbUrl,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 pool.query(`
