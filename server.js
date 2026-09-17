@@ -8,8 +8,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Create a MySQL connection pool using your Aiven DATABASE_URL
-const pool = mysql.createPool(process.env.DATABASE_URL);
+// Configure MySQL pool with Aiven SSL bypass
+const pool = mysql.createPool({
+  uri: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 // Initialize table on startup with all 5 form fields
 async function initDb() {
@@ -32,7 +37,7 @@ async function initDb() {
 }
 initDb();
 
-// Endpoint handling form submissions from index.js
+// Endpoint handling form submissions
 app.post('/api/submit', async (req, res) => {
   const { firstName, lastName, email, phone, source } = req.body;
   
@@ -44,7 +49,8 @@ app.post('/api/submit', async (req, res) => {
     res.status(200).json({ message: 'Submitted successfully!' });
   } catch (err) {
     console.error('Error saving data:', err);
-    res.status(500).json({ error: 'Database error occurred' });
+    // Returns exact database error message for easier debugging
+    res.status(500).json({ error: err.message || 'Database error occurred' });
   }
 });
 
