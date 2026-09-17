@@ -1,21 +1,35 @@
-// array of reviews
-const REVIEWS = [
-    "Perfect company!",
-    "Loved the prices!",
-    "Family oriented company with its customer's needs prioritized."
-];
+// Add event listener for the form submission
+document.getElementById("estimate-form").addEventListener("submit", async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
 
-// let means a value might change
-let reviewNum = 0;
+    // Collect form data
+    const formData = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        source: document.getElementById("source").value
+    };
 
-document.getElementById("review-btn").addEventListener("click", (e) => {
-    alert(REVIEWS[reviewNum]);
-    reviewNum = (reviewNum + 1) % REVIEWS.length;
-})
-
-// read the page with the DOM
-
-// counts the number of rows <tr> inside the body <tbody> of the table with id job-costs
-const jobCount = document.querySelectorAll("#job-costs tbody tr").length;
-// write that number back to title (back ticks not single quotes)
-document.getElementById("job-cost-title").innerText = `${jobCount} Estimation Step Instructions`;
+    // Send the form data to the server
+    try {
+        // Send the form data to the server
+        const response = await fetch('http://localhost:3000/submit-lead', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            alert('Success! Your info was sent to the database.');
+            document.getElementById('estimate-form').reset(); // Clear form fields
+        } else {
+            alert('Server error, please try again.');
+        }
+    } 
+    catch (error) {
+        console.error('Error submitting response:', error);
+        alert('Error submitting response, please try again.');
+    }
+});

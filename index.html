@@ -1,7 +1,7 @@
 <html lang="en">
     <head>
         <title>Browser Tab Title</title>
-        <meta name="viewport" content="width=device-width"
+        <meta name="viewport" content="width=device-width">
         <script src="index.js" defer></script>
         <link rel="stylesheet" href="styles.css">
     </head>
@@ -33,7 +33,27 @@
                 <source src="Videos/metal_barn_1.mp4" type="video/mp4">
             </video>
         </div>
+        <!-- create the pop-up form for a free estimate -->
         <div class="request-estimate-container">
+            <h2>Request a Free Estimate</h2>
+            <form id="estimate-form">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <label for="source">How did you hear about us?</label>
+                <select id="source" name="source">
+                    <option value="Google">Google</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button type="submit">Request Estimate</button>
+            </form>
         </div>
         <div class="footer-container">
             <!-- column 1 -->
