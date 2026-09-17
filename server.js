@@ -1,5 +1,5 @@
 const express = require('express');
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,38 +8,38 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: { rejectUnauthorized: false }
-// });
-
-// Strip query parameters so pg doesn't override SSL settings
-const cleanDbUrl = process.env.DATABASE_URL 
-  ? process.env.DATABASE_URL.split('?')[0] 
-  : '';
-
-const pool = new Pool({
-  connectionString: cleanDbUrl,
+// Create a MySQL connection pool using your Aiven DATABASE_URL
+const pool = mysql.createPool({
+  uri: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
 
-pool.query(`
-  CREATE TABLE IF NOT EXISTS submissions (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  )
-`).catch(err => console.error('Database setup error:', err));
+// Initialize table on startup
+async function initDb() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS submissions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+        email VARCHAR(100),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('MySQL Database connected and table verified.');
+  } catch (err) {
+    console.error('Database setup error:', err);
+  }
+}
+initDb();
 
 app.post('/api/submit', async (req, res) => {
   const { name, email } = req.body;
   
   try {
-    await pool.query(
-      'INSERT INTO submissions (name, email) VALUES ($1, $2)',
+    await pool.execute(
+      'INSERT INTO submissions (name, email) VALUES (?, ?)',
       [name, email]
     );
     res.status(200).json({ message: 'Submitted successfully!' });
