@@ -37,17 +37,32 @@
   padding-right: 15px !important;
 }
 
+@media (min-width: 1200px) {
 /* main image with form */
 .layer-on-top-form {
   position: absolute;
-  top: 70%;                     /* Move down 50% from top of image */
+  top: 75%;                     /* Move down 50% from top of image */
   left: 80%;                    /* Move right 50% from left of image */
   transform: translate(-50%, -50%); /* Perfect centering trick */
   background-color: rgba(255, 255, 255, 0.9); /* White background overlay box */
   color: #333;
-  padding: 25px;
+  /* padding: 25px; */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 32px;
   border-radius: 5px;
   width: 350px;
+}
+}
+
+
+.layer-on-top-form p {
+  font-size: 17px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0.30em;
+  font-weight: 1;   
+  text-align: center;
 }
 
 /* main image with words */

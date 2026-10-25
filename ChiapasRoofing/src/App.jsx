@@ -48,13 +48,22 @@ function App() {
 
   function EstimateForm() {
     return <>
+      <p>Estimate Request</p>
       <Form>
         <Form.Label>Name</Form.Label>
         <Form.Control></Form.Control>
         <Form.Label>Phone Number</Form.Label>
         <Form.Control></Form.Control>
         <Form.Label>Email Address</Form.Label>
-        <Form.Control></Form.Control>              
+        <Form.Control></Form.Control>     
+        <Form.Label>Home Address</Form.Label>
+        <Form.Control></Form.Control>  
+        <Form.Label>Service Request</Form.Label>
+        <Form.Select>
+          <option>Roofing</option> 
+          <option>Gutters</option>
+          <option>Roofing & Gutters</option>
+        </Form.Select> 
       </Form>
     </>
   }
@@ -76,11 +85,39 @@ function App() {
     </>
   }
 
+  function MediaNavBar() {
+    return <>
+      <Navbar>
+        <Nav>
+          <ul>
+            <Nav.Item>Contact Us</Nav.Item>
+            <Nav.Link>(920) 421-1680</Nav.Link>
+            <Nav.Link>dari.chiapasroofing@hotmail.com</Nav.Link>
+          </ul>
+        </Nav>
+        <Nav>
+          <ul>
+            <Nav.Item>Socials</Nav.Item>
+            <Nav.Link>Facebook</Nav.Link>
+            <Nav.Link>TicToc</Nav.Link>
+          </ul>
+        </Nav>
+        <Nav>
+          <ul>
+            <Nav.Item>Hours</Nav.Item>
+            <Nav.Item>Mon-Fri: 8:00am-4:00pm</Nav.Item>
+          </ul>
+        </Nav>     
+      </Navbar>
+    </>
+  }
+
   return (
     <>
       <ContactNavigationBar />
       <WebPageNavigationBar />
       <MainImageForm></MainImageForm>
+      <MediaNavBar></MediaNavBar>
     </>
   )
 }
