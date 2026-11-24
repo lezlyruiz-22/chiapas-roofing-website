@@ -26,7 +26,7 @@ function App() {
   function WebPageNavigationBar() {
     return <>
       <Navbar className="web-nav-bar" expand="lg">
-        <img src="pictures/chiapas_roofing_logo.png" alt="Chiapas Roofing Logo" style={{ width: '70px', height: 'auto' }} />
+        <img src="/pictures/chiapas_roofing_logo.png" alt="Chiapas Roofing Logo" style={{ width: '70px', height: 'auto' }} />
         <Navbar.Toggle aria-controls="basic-nav-dropdown" />
         <Navbar.Collapse id="basic-nav-dropdown">
           <Nav className="w-100 justify-content-between">
@@ -71,7 +71,7 @@ function App() {
   function MainImageForm() {
     return <>
       <div className="position-relative">
-        <img src="pictures/main-page-roof.jpg" alt="Main Page Roof Image" style={{ width: '100%', height: 'auto', minWidth: '700px', minHeight: '700px', objectPosition: '100% center', objectFit: 'cover'}} />
+        <img src="/pictures/main-page-roof.jpg" alt="Main Page Roof Image" style={{ width: '100%', height: 'auto', minWidth: '700px', minHeight: '700px', objectPosition: '100% center', objectFit: 'cover'}} />
         <div className="layer-on-top-words">
           <h1 >CHIAPAS ROOFING</h1>
           <div className="caption-grey">
